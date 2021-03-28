@@ -20,7 +20,7 @@
 #
 # Author:
 #   adamgross42
-
+hubot-scripts.json
 module.exports = (robot) ->
 
   robot.router.get ['/facebook', '/instagram'], (req, res) ->
