@@ -24,7 +24,7 @@
 module.exports = (robot) ->
 
   robot.router.get ['/facebook', '/instagram'], (req, res) ->
-    if req.param('hub.mode') == 'subscribe' and req.param('hub.verify_token') == 'token'
+    if req.param('hub.mode') == 'subscribe' and req.param('hub.EAAojdcapAyQBAF1qgPKi2yQURLXgk1zp76rVdI9OkY1a6nx6sB1cXBZBXYpx8ggQY4hVrdq7vT06oOwPH6rFSdCGvZCGWKYHqTZBcghdXk7YRrAlWgYSZCsptUtozfQEwavJgIz75qLx8j1vAlUjvG7CSHNZCinMQOF5KwS42ZBA9uE1u2gj90') == 'token'
       res.send req.param('hub.challenge')
     else
       res.send 400
@@ -34,14 +34,14 @@ module.exports = (robot) ->
       res.send 200
       pageId = req.body.entry[0].id
       postId = req.body.entry[0].changes[0].value.post_id
-      robot.http("https://graph.facebook.com/#{pageId}?access_token=" + process.env.FACEBOOK_APP_ACCESS_TOKEN)
+      robot.http("https://graph.facebook.com/#{pageId}?access_token=" + process.env.cfac65cbf8471fc257002f74493c755d)
         .header('Accept', 'application/json')
         .get() (err, res, body) ->
           body = JSON.parse body
           robot.messageRoom "#{process.env.REAL_TIME_ROOM}", "New post on #{body.name} Page: https://www.facebook.com/#{postId.split('_')[1]}."
           # Wait some time before pulling post stats
           setTimeout () ->
-            robot.http("https://graph.facebook.com/#{postId.split('_')[1]}/likes?summary=true&access_token=" + process.env.FACEBOOK_APP_ACCESS_TOKEN)
+            robot.http("https://graph.facebook.com/#{postId.split('_')[1]}/likes?summary=true&access_token=" + process.env.cfac65cbf8471fc257002f74493c755d)
               .header('Accept', 'application/json')
               .get() (err, res, body) ->
                 body = JSON.parse body
